@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#e0e0e0"
+    tools:context="com.errorstation.edujobsbd.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+       <android.support.v7.widget.RecyclerView
+           android:layout_marginTop="10dp"
+           android:id="@+id/circularRV"
+           android:layout_marginLeft="15dp"
+           android:layout_marginRight="15dp"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemIconTint="@drawable/bottom_navigation_color_selector"
+        app:itemTextColor="@drawable/bottom_navigation_color_selector"
+        android:background="@color/colorPrimary"
+        app:menu="@menu/navigation" />
+
+</LinearLayout>

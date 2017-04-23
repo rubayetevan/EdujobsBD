@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">EdujobsBD</string>
+    <string name="title_home">বিশ্ববিদ্যালয় ভর্তি বিজ্ঞপ্তি</string>
+    <string name="title_dashboard">চাকুরীর বিজ্ঞপ্তি</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="demotext">ঢাকা বিশ্ববিদ্যালয় ক-ইউনিটে ভর্তি পরীক্ষার বিজ্ঞপ্তি</string>
+    <string name="demodate">২১-০৭-২০১৬</string>
+    <string name="about_us">আমাদের সম্পর্কে</string>
+    <string name="download">ডাউনলোড করুন</string>
+    <string name="internet_nai">দুঃখিত!  ইন্টারনেট সংযোগ ছাড়া এই অ্যাপটি চালানো সম্ভব নয়। দয়া করে ইন্টারনেট সংযোগটি চালু করে অ্যাপটি আবার চালু করুন।</string>
+    <string name="warning">সতর্কবানী!</string>
+    <string name="OK">OK</string>
+    <string name="about_us_description">Edujobsbd.com বাংলাদেশে একটি লিমিটেড কোম্পানী. এটা একটি নেতৃস্থানীয় শিক্ষা ও কর্মজীবন ব্যবস্থাপনা সাইট. ২০১১ সন থেকে আমরা এই সেবা প্রদান করে আসছি. আমরা সকল পাবলিক বিশ্ববিদ্যালয়ের আপডেট খবর, বেসরকারি বিশ্ববিদ্যালয়, মেডিকেল কলেজ এবং স্কুল-কলেজ  এর সমস্ত খবরাখবর  প্রকাশ করে থাকি। যার ফলে এখান থেকে অনেক শিক্ষার্থী গুরুত্বপূর্ণ  তথ্য পেয়ে অনেক উপকৃত হচ্ছে।  সংবাদ সংগ্রহ করে জীবিকানির্বাহ করছে অনেক শিক্ষার্থী ।</string>
+    <string name="Trans">abcd</string>
+</resources>
