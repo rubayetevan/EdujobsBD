@@ -45,6 +45,8 @@ public class PdfViewActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
+        Intent intent = getIntent();
+        pdfLink = intent.getStringExtra("pdfLink");
 
 
         if (isInternetAvailable(PdfViewActivity.this)) {
@@ -63,7 +65,7 @@ public class PdfViewActivity extends AppCompatActivity {
                 }
 
             });
-            pdfLink = "http://www.pdf995.com/samples/pdf.pdf";
+
             webView.loadUrl("http://drive.google.com/viewerng/viewer?embedded=true&url=" + pdfLink);
 
         } else {

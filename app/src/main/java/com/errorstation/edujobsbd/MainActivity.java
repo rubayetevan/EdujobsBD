@@ -20,7 +20,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     int select;
     Toolbar toolbar;
     TextView headingTV;
+    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +43,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupToolbar();
         circularRV = (RecyclerView) findViewById(R.id.circularRV);
+        progressBar = (ProgressBar) findViewById(R.id.mainPB);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         changeTypeface(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         navigation.getMenu().getItem(0).setChecked(true);
-        select =0;
-        showInformation();
+        select = 0;
+        showInformation(getString(R.string.category_university));
     }
+
     private void setupToolbar() {
 
         toolbar = (Toolbar) findViewById(R.id.mainTB);
@@ -54,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         headingTV.setTypeface(typeFace);
 
     }
+
     public static boolean isInternetAvailable(Context context) {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -83,18 +94,16 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    if(select!=0)
-                    {
-                        showInformation();
-                        select=0;
+                    if (select != 0) {
+                        showInformation(getString(R.string.category_university));
+                        select = 0;
                     }
 
                     return true;
                 case R.id.navigation_dashboard:
-                    if(select!=1)
-                    {
-                        circularRV.setVisibility(View.GONE);
-                        select=1;
+                    if (select != 1) {
+                        showInformation(getString(R.string.category_job));
+                        select = 1;
                     }
 
                     return true;
@@ -105,16 +114,36 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-    private void showInformation() {
+    private void showInformation(String category) {
 
         if (isInternetAvailable(MainActivity.this)) {
 
-            circularRV.setVisibility(View.VISIBLE);
-            CircularAdapter circularAdapter = new CircularAdapter(this);
-            LinearLayoutManager layoutManager =
-                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
-            circularRV.setLayoutManager(layoutManager);
-            circularRV.setAdapter(circularAdapter);
+            circularRV.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+            API.Factory.getInstance().getCriculars(category).enqueue(new Callback<CricularModel>() {
+                @Override
+                public void onResponse(Call<CricularModel> call, Response<CricularModel> response) {
+                    try {
+
+                        CircularAdapter circularAdapter = new CircularAdapter(MainActivity.this, response.body().getCircular());
+                        LinearLayoutManager layoutManager =
+                                new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
+                        circularRV.setLayoutManager(layoutManager);
+                        circularRV.setAdapter(circularAdapter);
+                        circularRV.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CricularModel> call, Throwable t) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(MainActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         } else {
             Typeface typeFace = Typeface.createFromAsset(getAssets(), "Siyamrupali.ttf");
 
@@ -123,12 +152,11 @@ public class MainActivity extends AppCompatActivity {
             builder.setMessage(banglaEncode(typeFace, getString(R.string.internet_nai)));
             builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    //do things
+
                     finish();
                 }
             });
             AlertDialog dialog = builder.create();
-
             dialog.setCancelable(false);
             dialog.show();
         }

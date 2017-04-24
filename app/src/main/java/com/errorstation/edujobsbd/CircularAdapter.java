@@ -9,11 +9,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * Created by Rubayet on 23-Apr-17.
@@ -21,10 +24,12 @@ import android.widget.TextView;
 
 public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder> {
     private Context context;
+    private List<Circular> circular = null;
 
-    public CircularAdapter(Context context) {
+    public CircularAdapter(Context context, List<Circular> circular) {
 
         this.context = context;
+        this.circular = circular;
 
     }
 
@@ -35,32 +40,50 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
     }
 
     @Override
-    public void onBindViewHolder(final Holder holder, int position) {
+    public void onBindViewHolder(final Holder holder, final int position) {
         Typeface typeFace = Typeface.createFromAsset(context.getAssets(), "Siyamrupali.ttf");
         holder.nameTV.setTypeface(typeFace);
         holder.dateTV.setTypeface(typeFace);
+
+        try {
+            holder.nameTV.setText(circular.get(position).getTitle());
+            holder.dateTV.setText(circular.get(position).getPostingdate());
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
         holder.frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String pdfLink = null;
+                try {
+                    pdfLink = circular.get(position).getLink();
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+                if (pdfLink != null) {
+                    Intent intent = new Intent(context, PdfViewActivity.class);
+                    intent.putExtra("pdfLink", pdfLink);
 
-                Intent intent = new Intent(context,PdfViewActivity.class);
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Activity activity = (Activity) context;
-                    Bundle bundle1 = ActivityOptions.makeSceneTransitionAnimation(activity, holder.frameLayout, holder.frameLayout
-                            .getTransitionName()).toBundle();
-                    context.startActivity(intent, bundle1);
-                } else {
-                    context.startActivity(intent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Activity activity = (Activity) context;
+                        Bundle bundle1 = ActivityOptions.makeSceneTransitionAnimation(activity, holder.frameLayout, holder.frameLayout
+                                .getTransitionName()).toBundle();
+                        context.startActivity(intent, bundle1);
+                    }
+                    else {
+                        context.startActivity(intent);
+                    }
                 }
             }
         });
+
     }
 
 
     @Override
     public int getItemCount() {
-        return 50;
+        return circular.size();
     }
 
     class Holder extends RecyclerView.ViewHolder {

@@ -15,4 +15,7 @@
     <string name="edujobs_circular">এডুজবস বিজ্ঞপ্তি</string>
     <string name="circular_details">বিজ্ঞপ্তির বিস্তারিত</string>
     <string name="share">শেয়ার করুন</string>
+
+    <string name="category_university">University</string>
+    <string name="category_job">Job</string>
 </resources>
