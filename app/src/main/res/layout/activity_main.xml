@@ -8,26 +8,28 @@
     android:orientation="vertical"
     android:background="#e0e0e0"
     tools:context="com.errorstation.edujobsbd.MainActivity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/mainTB"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:focusableInTouchMode="true"
-        android:titleTextColor="#ffffff"
-        >
-            <TextView
-                android:layout_marginLeft="15dp"
-                android:text="@string/edujobs_circular"
-                android:textSize="20sp"
-                android:layout_centerInParent="true"
-                android:id="@+id/headingTV"
-                android:layout_alignParentLeft="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"/>
+        android:titleTextColor="#ffffff">
+
+        <TextView
+            android:id="@+id/headingTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="72dp"
+            android:text="@string/edujobs_circular"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
     </android.support.v7.widget.Toolbar>
+
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
