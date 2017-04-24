@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -19,26 +20,40 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView circularRV;
     int select;
+    Toolbar toolbar;
+    TextView headingTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupToolbar();
         circularRV = (RecyclerView) findViewById(R.id.circularRV);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         changeTypeface(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         navigation.getMenu().getItem(0).setChecked(true);
-        select =1;
+        select =0;
         showInformation();
     }
+    private void setupToolbar() {
 
+        toolbar = (Toolbar) findViewById(R.id.mainTB);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        headingTV = (TextView) findViewById(R.id.headingTV);
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), "Siyamrupali.ttf");
+        headingTV.setTypeface(typeFace);
+
+    }
     public static boolean isInternetAvailable(Context context) {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

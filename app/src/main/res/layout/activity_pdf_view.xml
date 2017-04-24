@@ -6,7 +6,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.errorstation.edujobsbd.PdfViewActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/subTB"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:focusableInTouchMode="true"
+        android:titleTextColor="#ffffff"
+        >
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:text="@string/circular_details"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:id="@+id/heading2TV"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"/>
 
+    </android.support.v7.widget.Toolbar>
 <FrameLayout
     android:transitionName="@string/Trans"
     android:layout_width="match_parent"

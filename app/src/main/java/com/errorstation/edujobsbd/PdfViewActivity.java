@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -22,6 +24,7 @@ import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import static com.errorstation.edujobsbd.MainActivity.banglaEncode;
@@ -30,12 +33,15 @@ import static com.errorstation.edujobsbd.MainActivity.isInternetAvailable;
 public class PdfViewActivity extends AppCompatActivity {
     WebView webView;
     String pdfLink;
+    Toolbar toolbar;
+    TextView headingTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.activity_pdf_view);
+        setupToolbar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -87,7 +93,16 @@ public class PdfViewActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+    private void setupToolbar() {
 
+        toolbar = (Toolbar) findViewById(R.id.subTB);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        headingTV = (TextView) findViewById(R.id.heading2TV);
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), "Siyamrupali.ttf");
+        headingTV.setTypeface(typeFace);
+
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -116,6 +131,9 @@ public class PdfViewActivity extends AppCompatActivity {
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "Siyamrupali.ttf");
         item.setTitle(getString(R.string.download));
         applyFontToItem(item, typeFace);
+        item =menu.getItem(1);
+        item.setTitle(getString(R.string.share));
+        applyFontToItem(item, typeFace);
         return true;
     }
 
@@ -128,9 +146,19 @@ public class PdfViewActivity extends AppCompatActivity {
             case R.id.download_pdf:
                 downloadFile();
                 return true;
+            case R.id.share_pdf:
+               shareFile();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void shareFile() {
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, pdfLink);
+        startActivity(Intent.createChooser(sharingIntent, "Share Circular"));
     }
 
     private void downloadFile() {
