@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -46,6 +47,9 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
         holder.nameTV.setTypeface(typeFace);
         holder.dateTV.setTypeface(typeFace);
         holder.typeTV.setTypeface(typeFace);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.cardView.setElevation(100);
+        }
 
         try {
 
@@ -63,14 +67,18 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
             if(type.equalsIgnoreCase("Government"))
             {
                 holder.typeTV.setText(context.getString(R.string.demo_govt));
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#EC407A"));
             }
             else if(type.equalsIgnoreCase("Semi-Government"))
             {
                 holder.typeTV.setText(context.getString(R.string.demo_semigovt));
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#89929F"));
             }
             else if(type.equalsIgnoreCase("Private"))
             {
                 holder.typeTV.setText(context.getString(R.string.demo_private));
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#009688"));
+
             }
 
         } catch (NullPointerException e) {
