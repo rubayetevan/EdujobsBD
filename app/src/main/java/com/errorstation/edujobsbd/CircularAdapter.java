@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -44,10 +45,34 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
         Typeface typeFace = Typeface.createFromAsset(context.getAssets(), "Siyamrupali.ttf");
         holder.nameTV.setTypeface(typeFace);
         holder.dateTV.setTypeface(typeFace);
+        holder.typeTV.setTypeface(typeFace);
 
         try {
+
             holder.nameTV.setText(circular.get(position).getTitle());
             holder.dateTV.setText(circular.get(position).getPostingdate());
+            String type = circular.get(position).getType();
+            String New  = circular.get(position).getNew();
+            if(New.equalsIgnoreCase("0"))
+            {
+                holder.newIMGV.setVisibility(View.GONE);
+            }else
+            {
+                holder.newIMGV.setVisibility(View.VISIBLE);
+            }
+            if(type.equalsIgnoreCase("Government"))
+            {
+                holder.typeTV.setText(context.getString(R.string.demo_govt));
+            }
+            else if(type.equalsIgnoreCase("Semi-Government"))
+            {
+                holder.typeTV.setText(context.getString(R.string.demo_semigovt));
+            }
+            else if(type.equalsIgnoreCase("Private"))
+            {
+                holder.typeTV.setText(context.getString(R.string.demo_private));
+            }
+
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -87,16 +112,19 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
     }
 
     class Holder extends RecyclerView.ViewHolder {
-        TextView nameTV, dateTV;
+        TextView nameTV, dateTV,typeTV;
         CardView cardView;
         FrameLayout frameLayout;
+        ImageView newIMGV;
 
         Holder(View itemView) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             nameTV = (TextView) itemView.findViewById(R.id.nameTV);
+            typeTV = (TextView) itemView.findViewById(R.id.typeTV);
             dateTV = (TextView) itemView.findViewById(R.id.dateTV);
             frameLayout = (FrameLayout) itemView.findViewById(R.id.frameLayout);
+            newIMGV = (ImageView) itemView.findViewById(R.id.newIMGV);
 
         }
     }

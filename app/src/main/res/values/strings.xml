@@ -18,4 +18,7 @@
 
     <string name="category_university">University</string>
     <string name="category_job">Job</string>
+    <string name="demo_govt">সরকারী</string>
+    <string name="demo_semigovt">আধা-সরকারী</string>
+    <string name="demo_private">বেসরকারী</string>
 </resources>
