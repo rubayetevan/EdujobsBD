@@ -24,7 +24,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:layout_marginLeft="15dp"
-            android:text="@string/edujobs_circular"
+            android:text="@string/edujobsbd_com"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 

@@ -32,7 +32,7 @@ import static com.errorstation.edujobsbd.MainActivity.isInternetAvailable;
 
 public class PdfViewActivity extends AppCompatActivity {
     WebView webView;
-    String pdfLink;
+    String pdfLink,pdfTitle;
     Toolbar toolbar;
     TextView headingTV;
 
@@ -47,6 +47,7 @@ public class PdfViewActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         Intent intent = getIntent();
         pdfLink = intent.getStringExtra("pdfLink");
+        pdfTitle = intent.getStringExtra("pdfTitle");
 
 
         if (isInternetAvailable(PdfViewActivity.this)) {
@@ -157,9 +158,10 @@ public class PdfViewActivity extends AppCompatActivity {
     }
 
     private void shareFile() {
+        String shareData = pdfTitle+"\n\nবিস্তারিত: "+pdfLink+"\n\nসৌজন্যে: www.edujobsbd.com";
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, pdfLink);
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareData);
         startActivity(Intent.createChooser(sharingIntent, "Share Circular"));
     }
 

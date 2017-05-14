@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
@@ -20,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView headingTV;
     ProgressBar progressBar;
+    BottomNavigationView navigation;
+    boolean doubleBackToExitPressedOnce = false;
 
 
     @Override
@@ -45,13 +49,32 @@ public class MainActivity extends AppCompatActivity {
         circularRV = (RecyclerView) findViewById(R.id.circularRV);
         progressBar = (ProgressBar) findViewById(R.id.mainPB);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         changeTypeface(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         navigation.getMenu().getItem(0).setChecked(true);
         select = 0;
         showInformation(getString(R.string.category_university));
+
+
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if(select==0)
+        {
+            navigation.getMenu().getItem(0).setChecked(true);
+            showInformation(getString(R.string.category_university));
+            select = 0;
+        }
+        else if(select==1)
+        {
+            navigation.getMenu().getItem(1).setChecked(true);
+            showInformation(getString(R.string.category_job));
+            select = 1;
+        }
     }
 
     private void setupToolbar() {
@@ -217,5 +240,32 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        showExitWarningMessage();
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
+
+    private void showExitWarningMessage()
+    {
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), "Siyamrupali.ttf");
+        Toast toast = Toast.makeText(this, R.string.exit_warining_msg, Toast.LENGTH_LONG);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toastTV.setTypeface(typeFace);
+        toast.show();
     }
 }

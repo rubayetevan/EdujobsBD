@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,9 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
     public void onBindViewHolder(final Holder holder, final int position) {
         Typeface typeFace = Typeface.createFromAsset(context.getAssets(), "Siyamrupali.ttf");
         holder.nameTV.setTypeface(typeFace);
-        holder.dateTV.setTypeface(typeFace);
+        holder.dateStartTV.setTypeface(typeFace);
+        holder.dateEndTV.setTypeface(typeFace);
+        holder.moneyTV.setTypeface(typeFace);
         holder.typeTV.setTypeface(typeFace);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.cardView.setElevation(100);
@@ -54,7 +55,7 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
         try {
 
             holder.nameTV.setText(circular.get(position).getTitle());
-            holder.dateTV.setText(circular.get(position).getPostingdate());
+            holder.dateStartTV.setText(circular.get(position).getPostingdate());
             String type = circular.get(position).getType();
             String New  = circular.get(position).getNew();
             if(New.equalsIgnoreCase("0"))
@@ -89,14 +90,17 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
             @Override
             public void onClick(View v) {
                 String pdfLink = null;
+                String pdfTitle = null;
                 try {
                     pdfLink = circular.get(position).getLink();
+                    pdfTitle = circular.get(position).getTitle();
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
                 if (pdfLink != null) {
                     Intent intent = new Intent(context, PdfViewActivity.class);
                     intent.putExtra("pdfLink", pdfLink);
+                    intent.putExtra("pdfTitle", pdfTitle);
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         Activity activity = (Activity) context;
@@ -120,7 +124,7 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
     }
 
     class Holder extends RecyclerView.ViewHolder {
-        TextView nameTV, dateTV,typeTV;
+        TextView nameTV, dateStartTV,typeTV,dateEndTV,moneyTV;
         CardView cardView;
         FrameLayout frameLayout;
         ImageView newIMGV;
@@ -130,7 +134,10 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             nameTV = (TextView) itemView.findViewById(R.id.nameTV);
             typeTV = (TextView) itemView.findViewById(R.id.typeTV);
-            dateTV = (TextView) itemView.findViewById(R.id.dateTV);
+            dateStartTV = (TextView) itemView.findViewById(R.id.dateTV);
+            dateEndTV = (TextView) itemView.findViewById(R.id.dateEndTV);
+            moneyTV = (TextView) itemView.findViewById(R.id.moneyTV);
+
             frameLayout = (FrameLayout) itemView.findViewById(R.id.frameLayout);
             newIMGV = (ImageView) itemView.findViewById(R.id.newIMGV);
 

@@ -21,4 +21,7 @@
     <string name="demo_govt">সরকারী</string>
     <string name="demo_semigovt">আধা-সরকারী</string>
     <string name="demo_private">বেসরকারী</string>
+    <string name="edujobsbd_com">Edujobsbd.com বিজ্ঞপ্তি</string>
+    <string name="demo_money">৬০০ টাকা</string>
+    <string name="exit_warining_msg">আবার ব্যাক এ প্রেস করুন বাহির হওয়ার জন্য!</string>
 </resources>
