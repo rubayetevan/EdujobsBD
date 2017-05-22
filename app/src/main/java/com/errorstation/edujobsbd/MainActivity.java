@@ -56,13 +56,11 @@ public class MainActivity extends AppCompatActivity {
         navigation.getMenu().getItem(0).setChecked(true);
         select = 0;
         showInformation(getString(R.string.category_university));
-
-
+        loadData();
     }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    private void loadData()
+    {
         if(select==0)
         {
             navigation.getMenu().getItem(0).setChecked(true);
@@ -75,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
             showInformation(getString(R.string.category_job));
             select = 1;
         }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
     }
 
     private void setupToolbar() {
@@ -121,16 +124,13 @@ public class MainActivity extends AppCompatActivity {
                         showInformation(getString(R.string.category_university));
                         select = 0;
                     }
-
                     return true;
                 case R.id.navigation_dashboard:
                     if (select != 1) {
                         showInformation(getString(R.string.category_job));
                         select = 1;
                     }
-
                     return true;
-
             }
             return false;
         }

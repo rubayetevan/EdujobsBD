@@ -44,8 +44,8 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
     public void onBindViewHolder(final Holder holder, final int position) {
         Typeface typeFace = Typeface.createFromAsset(context.getAssets(), "Siyamrupali.ttf");
         holder.nameTV.setTypeface(typeFace);
-        holder.dateStartTV.setTypeface(typeFace);
-        holder.dateEndTV.setTypeface(typeFace);
+        holder.dateTV.setTypeface(typeFace);
+        //holder.dateEndTV.setTypeface(typeFace);
         holder.moneyTV.setTypeface(typeFace);
         holder.typeTV.setTypeface(typeFace);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -53,9 +53,9 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
         }
 
         try {
-
+            String endDate = "১২-ডিসেম্বর-২০১৭";
             holder.nameTV.setText(circular.get(position).getTitle());
-            holder.dateStartTV.setText(circular.get(position).getPostingdate());
+            holder.dateTV.setText(circular.get(position).getPostingdate()+" হইতে "+endDate);
             String type = circular.get(position).getType();
             String New  = circular.get(position).getNew();
             if(New.equalsIgnoreCase("0"))
@@ -65,6 +65,7 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
             {
                 holder.newIMGV.setVisibility(View.VISIBLE);
             }
+
             if(type.equalsIgnoreCase("Government"))
             {
                 holder.typeTV.setText(context.getString(R.string.demo_govt));
@@ -79,7 +80,6 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
             {
                 holder.typeTV.setText(context.getString(R.string.demo_private));
                 holder.cardView.setCardBackgroundColor(Color.parseColor("#009688"));
-
             }
 
         } catch (NullPointerException e) {
@@ -124,7 +124,7 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
     }
 
     class Holder extends RecyclerView.ViewHolder {
-        TextView nameTV, dateStartTV,typeTV,dateEndTV,moneyTV;
+        TextView nameTV, dateTV,typeTV,moneyTV;
         CardView cardView;
         FrameLayout frameLayout;
         ImageView newIMGV;
@@ -134,10 +134,8 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             nameTV = (TextView) itemView.findViewById(R.id.nameTV);
             typeTV = (TextView) itemView.findViewById(R.id.typeTV);
-            dateStartTV = (TextView) itemView.findViewById(R.id.dateTV);
-            dateEndTV = (TextView) itemView.findViewById(R.id.dateEndTV);
+            dateTV = (TextView) itemView.findViewById(R.id.dateTV);
             moneyTV = (TextView) itemView.findViewById(R.id.moneyTV);
-
             frameLayout = (FrameLayout) itemView.findViewById(R.id.frameLayout);
             newIMGV = (ImageView) itemView.findViewById(R.id.newIMGV);
 

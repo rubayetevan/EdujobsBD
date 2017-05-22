@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 
 public interface API {
 
-    String baseURL = "http://errorstation.com/circular/api/";
+    String baseURL = "http://eitsoft.com/circular/api/";
 
     @GET("getcircular.php?")
     Call<CricularModel> getCriculars(@Query("category") String category);
