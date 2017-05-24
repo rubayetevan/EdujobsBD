@@ -45,7 +45,6 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
         Typeface typeFace = Typeface.createFromAsset(context.getAssets(), "Siyamrupali.ttf");
         holder.nameTV.setTypeface(typeFace);
         holder.dateTV.setTypeface(typeFace);
-        //holder.dateEndTV.setTypeface(typeFace);
         holder.moneyTV.setTypeface(typeFace);
         holder.typeTV.setTypeface(typeFace);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -53,9 +52,8 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
         }
 
         try {
-            String endDate = "১২-ডিসেম্বর-২০১৭";
             holder.nameTV.setText(circular.get(position).getTitle());
-            holder.dateTV.setText(circular.get(position).getPostingdate()+" হইতে "+endDate);
+            holder.dateTV.setText(circular.get(position).getStartdate()+" হইতে "+circular.get(position).getEnddate());
             String type = circular.get(position).getType();
             String New  = circular.get(position).getNew();
             if(New.equalsIgnoreCase("0"))
@@ -79,6 +77,16 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
             else if(type.equalsIgnoreCase("Private"))
             {
                 holder.typeTV.setText(context.getString(R.string.demo_private));
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#009688"));
+            }
+            else if(type.equalsIgnoreCase("পাবলিক"))
+            {
+                holder.typeTV.setText("পাবলিক");
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#EC407A"));
+            }
+            else if(type.equalsIgnoreCase("প্রাইভেট"))
+            {
+                holder.typeTV.setText("প্রাইভেট");
                 holder.cardView.setCardBackgroundColor(Color.parseColor("#009688"));
             }
 

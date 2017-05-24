@@ -147,14 +147,20 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<CricularModel> call, Response<CricularModel> response) {
                     try {
-
-                        CircularAdapter circularAdapter = new CircularAdapter(MainActivity.this, response.body().getCircular());
-                        LinearLayoutManager layoutManager =
-                                new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
-                        circularRV.setLayoutManager(layoutManager);
-                        circularRV.setAdapter(circularAdapter);
-                        circularRV.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.GONE);
+                        if(response.body().getCircular().size()>0) {
+                            CircularAdapter circularAdapter = new CircularAdapter(MainActivity.this, response.body().getCircular());
+                            LinearLayoutManager layoutManager =
+                                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
+                            circularRV.setLayoutManager(layoutManager);
+                            circularRV.setAdapter(circularAdapter);
+                            circularRV.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                        else
+                        {
+                            progressBar.setVisibility(View.GONE);
+                            showWarningMessage(getString(R.string.no_circular_found));
+                        }
                     } catch (RuntimeException e) {
                         e.printStackTrace();
                     }
@@ -249,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        showExitWarningMessage();
+        showWarningMessage(getString(R.string.exit_warining_msg));
         new Handler().postDelayed(new Runnable() {
 
             @Override
@@ -259,10 +265,10 @@ public class MainActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    private void showExitWarningMessage()
+    private void showWarningMessage(String message)
     {
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "Siyamrupali.ttf");
-        Toast toast = Toast.makeText(this, R.string.exit_warining_msg, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
         LinearLayout toastLayout = (LinearLayout) toast.getView();
         TextView toastTV = (TextView) toastLayout.getChildAt(0);
         toastTV.setTypeface(typeFace);

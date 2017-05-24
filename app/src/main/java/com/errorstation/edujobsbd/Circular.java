@@ -6,9 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Circular {
 
-    @SerializedName("new")
-    @Expose
-    private String New;
     @SerializedName("category")
     @Expose
     private String category;
@@ -21,17 +18,15 @@ public class Circular {
     @SerializedName("link")
     @Expose
     private String link;
-    @SerializedName("postingdate")
+    @SerializedName("startdate")
     @Expose
-    private String postingdate;
-
-    public String getNew() {
-        return New;
-    }
-
-    public void setNew(String aNew) {
-        New = aNew;
-    }
+    private String startdate;
+    @SerializedName("enddate")
+    @Expose
+    private String enddate;
+    @SerializedName("new")
+    @Expose
+    private String _new;
 
     public String getCategory() {
         return category;
@@ -65,12 +60,28 @@ public class Circular {
         this.link = link;
     }
 
-    public String getPostingdate() {
-        return postingdate;
+    public String getStartdate() {
+        return startdate;
     }
 
-    public void setPostingdate(String postingdate) {
-        this.postingdate = postingdate;
+    public void setStartdate(String startdate) {
+        this.startdate = startdate;
+    }
+
+    public String getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(String enddate) {
+        this.enddate = enddate;
+    }
+
+    public String getNew() {
+        return _new;
+    }
+
+    public void setNew(String _new) {
+        this._new = _new;
     }
 
 }

@@ -24,4 +24,5 @@
     <string name="edujobsbd_com">Edujobsbd.com বিজ্ঞপ্তি</string>
     <string name="demo_money">৬০০ টাকা</string>
     <string name="exit_warining_msg">আবার ব্যাক এ প্রেস করুন বাহির হওয়ার জন্য!</string>
+    <string name="no_circular_found">দুঃখিত! কোন বিজ্ঞপ্তি খুজে পাওয়া যায়নি।</string>
 </resources>
