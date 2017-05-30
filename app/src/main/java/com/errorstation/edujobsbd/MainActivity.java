@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +26,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     BottomNavigationView navigation;
     boolean doubleBackToExitPressedOnce = false;
+    private InterstitialAd mInterstitialAd;
 
 
     @Override
@@ -55,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
 
         navigation.getMenu().getItem(0).setChecked(true);
         select = 0;
+
+        MobileAds.initialize(this, "ca-app-pub-5822136568079311~5702939980");
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-5822136568079311/7179673183");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
         showInformation(getString(R.string.category_university));
         loadData();
     }
@@ -78,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Log.d("FullScreenADD", "The interstitial wasn't loaded yet.");
+        }
     }
 
     private void setupToolbar() {

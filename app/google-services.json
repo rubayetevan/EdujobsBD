@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "368744805828",
+    "firebase_url": "https://edujobs-circular.firebaseio.com",
+    "project_id": "edujobs-circular",
+    "storage_bucket": "edujobs-circular.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368744805828:android:d0fff2c1d498e224",
+        "android_client_info": {
+          "package_name": "com.errorstation.edujobsbd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368744805828-ltkni79r9foh20tmraacgjp7ip6l6m09.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALc-cBlcgy7FG6I6ww3dBrbSxIPgmlmgw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
