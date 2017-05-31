@@ -6,6 +6,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Circular {
 
+    @SerializedName("fee")
+    @Expose
+    private String fee;
+
     @SerializedName("category")
     @Expose
     private String category;
@@ -27,6 +31,14 @@ public class Circular {
     @SerializedName("new")
     @Expose
     private String _new;
+
+    public String getFee() {
+        return fee;
+    }
+
+    public void setFee(String fee) {
+        this.fee = fee;
+    }
 
     public String getCategory() {
         return category;

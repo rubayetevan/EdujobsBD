@@ -17,6 +17,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import java.util.List;
 
 /**
@@ -52,6 +54,15 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
         }
 
         try {
+            if(circular.get(position).getFee().matches("")||circular.get(position).getFee().equals("")||circular.get(position).getFee()==null)
+            {
+                holder.moneyTV.setText("প্র/ন");
+            }
+            else
+            {
+                holder.moneyTV.setText(circular.get(position).getFee()+" টাকা");
+            }
+
             holder.nameTV.setText(circular.get(position).getTitle());
             holder.dateTV.setText(circular.get(position).getStartdate()+" হইতে "+circular.get(position).getEnddate());
             String type = circular.get(position).getType();
@@ -91,6 +102,7 @@ public class CircularAdapter extends RecyclerView.Adapter<CircularAdapter.Holder
             }
 
         } catch (NullPointerException e) {
+            FirebaseCrash.report(new Exception(e.getMessage()));
             e.printStackTrace();
         }
 

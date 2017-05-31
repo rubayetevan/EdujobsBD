@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.crash.FirebaseCrash;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -187,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onFailure(Call<CricularModel> call, Throwable t) {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(MainActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                    FirebaseCrash.report(new Exception(t.getMessage()));
                 }
             });
 
